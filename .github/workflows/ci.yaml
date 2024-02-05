@@ -32,7 +32,7 @@ jobs:
       - name: Download Golang Migrate
         run: | 
           curl -L https://github.com/golang-migrate/migrate/releases/download/v4.17.0/migrate.linux-386.tar.gz | tar xvz
-          sudo mv migrate.linux-386 /usr/bin/
+          sudo mv migrate.linux-386 /usr/bin/migrate
           which migrate
       - name: Run migration
         run: make migrateup
