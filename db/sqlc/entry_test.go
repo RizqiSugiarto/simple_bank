@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"learn-until-die/util"
 	"testing"
 	"time"
@@ -80,10 +81,10 @@ func TestListEntry(t *testing.T) {
 	}
 
 	entrys, err := testQueries.ListEntry(context.Background(), args)
-
 	require.NoError(t, err)
 	require.Len(t, entrys, 5)
-
+	fmt.Println(entrys, "ENTRYS")
+	fmt.Println(err, "err")
 	for _, entry := range entrys {
 		require.NotEmpty(t, entry)
 	}
