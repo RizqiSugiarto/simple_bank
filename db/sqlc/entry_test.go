@@ -11,8 +11,9 @@ import (
 )
 
 func CreateRandomEntry(t *testing.T) Entry {
+	account := CreateRandomAccount(t)
 	args := CreateEntryParams{
-		AccountID: util.RandomId(),
+		AccountID: account.ID,
 		Amount:    util.RandomMoney(),
 	}
 	Entry, err := testQueries.CreateEntry(context.Background(), args)
@@ -51,10 +52,11 @@ func TestGetEntry(t *testing.T) {
 
 func TestUpdateEntry(t *testing.T) {
 	entry1 := CreateRandomEntry(t)
+	Account := CreateRandomAccount(t)
 
 	args := UpdateEntryParams{
 		ID:        entry1.ID,
-		AccountID: 1,
+		AccountID: Account.ID,
 		Amount:    util.RandomMoney(),
 	}
 
@@ -68,6 +70,10 @@ func TestUpdateEntry(t *testing.T) {
 }
 
 func TestListEntry(t *testing.T) {
+	for i := 0; i < 10; i++ {
+		CreateRandomEntry(t)
+	}
+
 	args := ListEntryParams{
 		Limit:  5,
 		Offset: 5,
