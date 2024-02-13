@@ -30,5 +30,6 @@ type Transfer struct {
 	ToAccountID   int64
 	// must be positive
 	Amount    int64
+	Currency  string
 	CreatedAt time.Time
 }

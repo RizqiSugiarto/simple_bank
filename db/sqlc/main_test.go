@@ -2,6 +2,8 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
+	"learn-until-die/util"
 	"log"
 	"os"
 	"testing"
@@ -11,13 +13,16 @@ import (
 
 var testQueries *Queries
 var testDb *sql.DB
-var driverName = "postgres"
-var dataSource = "postgresql://postgres:cuankipintar@localhost:5434/simple_bank?sslmode=disable"
 
 func TestMain(m *testing.M) {
-	var err error
+	config, err := util.LoadConfig("../..")
 
-	testDb, err = sql.Open(driverName, dataSource)
+	if err != nil {
+		fmt.Println(err)
+		log.Fatal("Error when load config")
+	}
+
+	testDb, err = sql.Open(config.DbDriver, config.DbSource)
 
 	if err != nil {
 		log.Fatal("Error to connect db")
